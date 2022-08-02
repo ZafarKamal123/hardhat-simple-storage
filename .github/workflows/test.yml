@@ -1,0 +1,21 @@
+name: Test
+on: [push]
+jobs:
+  test:
+    name: Test Contract
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [17.x]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Using Node version ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: run test
+        run: |
+          npm install
+          npx hardhat test
